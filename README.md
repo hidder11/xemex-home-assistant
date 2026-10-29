@@ -12,6 +12,21 @@ Lees je Xemex Smart Connect uit in Home Assistant via MQTT of Modbus TCP. Je kie
 
 ## Installeren
 
+### Via HACS (voorkeur)
+
+Let op: deze repository staat nu alleen lokaal en is nog niet geschikt voor installatie via HACS. Daarvoor moet de integratie eerst in de juiste HACS-mapstructuur op GitHub worden gepubliceerd. Er is nog geen repository-URL om toe te voegen.
+
+Zodra die beschikbaar is:
+
+1. Open HACS in Home Assistant en kies via het menu rechtsboven **Aangepaste repositories**.
+2. Voeg de GitHub-repository-URL toe met type **Integratie**.
+3. Zoek **Xemex** in HACS en download de integratie.
+4. Herstart Home Assistant.
+5. Ga naar **Instellingen → Apparaten & diensten → Integratie toevoegen → Xemex**.
+6. Kies **MQTT** of **Modbus TCP** en vul de verbindingsgegevens in.
+
+### Handmatig kopiëren (alternatief)
+
 1. Kopieer de map `candidate/custom_components/xemex` uit deze repository naar `custom_components/xemex` in de configuratiemap van Home Assistant. Het bestand staat daarna op `/config/custom_components/xemex/manifest.json` bij een standaardinstallatie. Vervang bij een update de bestaande integratiemap; maak vooraf een back-up.
 2. Herstart Home Assistant.
 3. Ga naar **Instellingen → Apparaten & diensten → Integratie toevoegen → Xemex**.
