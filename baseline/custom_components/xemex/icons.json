@@ -1,0 +1,20 @@
+{
+  "entity": {
+    "sensor": {
+      "energy_import": { "default": "mdi:transmission-tower-import" },
+      "energy_export": { "default": "mdi:transmission-tower-export" },
+      "last_measurement": { "default": "mdi:clock-check-outline" },
+      "net_power": { "default": "mdi:transmission-tower" },
+      "power_import": { "default": "mdi:transmission-tower-import" },
+      "power_export": { "default": "mdi:transmission-tower-export" },
+      "power_failures": { "default": "mdi:transmission-tower-off" },
+      "long_power_failures": { "default": "mdi:transmission-tower-off" },
+      "phase_1_voltage_sags": { "default": "mdi:arrow-down-bold-outline" },
+      "phase_2_voltage_sags": { "default": "mdi:arrow-down-bold-outline" },
+      "phase_3_voltage_sags": { "default": "mdi:arrow-down-bold-outline" },
+      "phase_1_voltage_swells": { "default": "mdi:arrow-up-bold-outline" },
+      "phase_2_voltage_swells": { "default": "mdi:arrow-up-bold-outline" },
+      "phase_3_voltage_swells": { "default": "mdi:arrow-up-bold-outline" }
+    }
+  }
+}

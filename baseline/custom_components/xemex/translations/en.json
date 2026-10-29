@@ -1,0 +1,135 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "data": {
+          "base_topic": "Xemex MQTT base topic"
+        },
+        "data_description": {
+          "base_topic": "Enter the topic through the Smart Connect serial number, for example: devices/my-site/smart-connect/ABC123. Do not include /data/power_instant."
+        }
+      },
+      "reconfigure": {
+        "data": {
+          "base_topic": "Xemex MQTT base topic"
+        },
+        "data_description": {
+          "base_topic": "Update the topic through the same Smart Connect serial number. For example: devices/my-site/smart-connect/ABC123. Do not include /data/power_instant."
+        }
+      },
+      "discovery_confirm": {
+        "description": "Do you want to add the Xemex Smart Connect with serial number {serial}? It was discovered from its MQTT measurements."
+      }
+    },
+    "error": {
+      "empty_base_topic": "Enter the Xemex MQTT base topic.",
+      "invalid_base_topic": "Use exactly devices/<site>/smart-connect/<serial>. Check that the site and serial number do not contain extra path segments.",
+      "measurement_topic_included": "Remove /data/power_instant. Enter only the topic through the Smart Connect serial number.",
+      "mqtt_not_configured": "The Home Assistant MQTT integration is not configured or enabled. Set it up first in Settings > Devices & services.",
+      "mqtt_not_connected": "Home Assistant's MQTT integration is configured but is not connected to its broker. Restore the broker connection and try again."
+    },
+    "abort": {
+      "already_configured": "This Xemex Smart Connect device is already configured.",
+      "invalid_discovery_payload": "The discovered MQTT message is not a valid Xemex measurement payload.",
+      "invalid_discovery_topic": "The discovered MQTT topic is not a valid Xemex Smart Connect measurement topic."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "energy_import": {
+        "name": "Energy imported"
+      },
+      "energy_export": {
+        "name": "Energy exported"
+      },
+      "last_measurement": {
+        "name": "Last measurement"
+      },
+      "net_power": {
+        "name": "Net power"
+      },
+      "power_import": {
+        "name": "Power import"
+      },
+      "power_export": {
+        "name": "Power export"
+      },
+      "line_voltage_l1_l2": {
+        "name": "Line voltage L1-L2"
+      },
+      "line_voltage_l3_l1": {
+        "name": "Line voltage L3-L1"
+      },
+      "line_voltage_l2_l3": {
+        "name": "Line voltage L2-L3"
+      },
+      "reactive_power": {
+        "name": "Reactive power"
+      },
+      "reactive_power_positive": {
+        "name": "Reactive power positive"
+      },
+      "reactive_power_negative": {
+        "name": "Reactive power negative"
+      },
+      "reactive_energy_quadrant_1": {
+        "name": "Reactive energy quadrant 1"
+      },
+      "reactive_energy_quadrant_2": {
+        "name": "Reactive energy quadrant 2"
+      },
+      "reactive_energy_quadrant_3": {
+        "name": "Reactive energy quadrant 3"
+      },
+      "reactive_energy_quadrant_4": {
+        "name": "Reactive energy quadrant 4"
+      },
+      "power_failures": {
+        "name": "Power failures"
+      },
+      "long_power_failures": {
+        "name": "Long power failures"
+      },
+      "power_factor": {
+        "name": "Power factor"
+      },
+      "apparent_power": {
+        "name": "Apparent power"
+      },
+      "phase_1_voltage": { "name": "Voltage L1" },
+      "phase_2_voltage": { "name": "Voltage L2" },
+      "phase_3_voltage": { "name": "Voltage L3" },
+      "phase_1_current": { "name": "Current L1" },
+      "phase_2_current": { "name": "Current L2" },
+      "phase_3_current": { "name": "Current L3" },
+      "phase_1_net_power": { "name": "Net power L1" },
+      "phase_2_net_power": { "name": "Net power L2" },
+      "phase_3_net_power": { "name": "Net power L3" },
+      "phase_1_power_import": { "name": "Power import L1" },
+      "phase_2_power_import": { "name": "Power import L2" },
+      "phase_3_power_import": { "name": "Power import L3" },
+      "phase_1_power_export": { "name": "Power export L1" },
+      "phase_2_power_export": { "name": "Power export L2" },
+      "phase_3_power_export": { "name": "Power export L3" },
+      "phase_1_reactive_power": { "name": "Reactive power L1" },
+      "phase_2_reactive_power": { "name": "Reactive power L2" },
+      "phase_3_reactive_power": { "name": "Reactive power L3" },
+      "phase_1_reactive_power_positive": { "name": "Reactive power positive L1" },
+      "phase_2_reactive_power_positive": { "name": "Reactive power positive L2" },
+      "phase_3_reactive_power_positive": { "name": "Reactive power positive L3" },
+      "phase_1_reactive_power_negative": { "name": "Reactive power negative L1" },
+      "phase_2_reactive_power_negative": { "name": "Reactive power negative L2" },
+      "phase_3_reactive_power_negative": { "name": "Reactive power negative L3" },
+      "phase_1_voltage_sags": { "name": "Voltage sags L1" },
+      "phase_2_voltage_sags": { "name": "Voltage sags L2" },
+      "phase_3_voltage_sags": { "name": "Voltage sags L3" },
+      "phase_1_voltage_swells": { "name": "Voltage swells L1" },
+      "phase_2_voltage_swells": { "name": "Voltage swells L2" },
+      "phase_3_voltage_swells": { "name": "Voltage swells L3" },
+      "phase_1_apparent_power": { "name": "Apparent power L1" },
+      "phase_2_apparent_power": { "name": "Apparent power L2" },
+      "phase_3_apparent_power": { "name": "Apparent power L3" }
+    }
+  }
+}

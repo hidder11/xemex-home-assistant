@@ -1,0 +1,84 @@
+rules:
+  # Bronze
+  action-setup:
+    status: exempt
+    comment: The integration provides no service actions.
+  appropriate-polling:
+    status: exempt
+    comment: Smart P1 Connect provides local MQTT push updates; this integration does not poll.
+  brands: todo
+  common-modules: done
+  config-flow-test-coverage: done
+  config-flow: done
+  dependency-transparency: done
+  docs-actions:
+    status: exempt
+    comment: The integration provides no service actions.
+  docs-conditions:
+    status: exempt
+    comment: The integration provides no conditions.
+  docs-high-level-description: done
+  docs-installation-instructions: done
+  docs-removal-instructions: done
+  docs-triggers:
+    status: exempt
+    comment: The integration provides no triggers.
+  entity-event-setup: done
+  entity-unique-id: done
+  has-entity-name: done
+  runtime-data: done
+  test-before-configure:
+    status: exempt
+    comment: The local MQTT publisher cannot be queried; the flow validates MQTT availability and topic structure.
+  test-before-setup: done
+  unique-config-entry: done
+  # Silver
+  action-exceptions:
+    status: exempt
+    comment: The integration provides no service actions.
+  config-entry-unloading: done
+  docs-configuration-parameters: done
+  docs-installation-parameters: done
+  entity-unavailable: done
+  integration-owner: todo
+  log-when-unavailable: done
+  parallel-updates:
+    status: exempt
+    comment: The integration does not poll or implement entity update methods.
+  reauthentication-flow:
+    status: exempt
+    comment: Smart P1 Connect authentication is configured on the device, not in Home Assistant.
+  test-coverage: todo
+  # Gold
+  devices: done
+  diagnostics: done
+  discovery-update-info:
+    status: done
+  discovery: done
+  docs-data-update: done
+  docs-examples: done
+  docs-known-limitations: done
+  docs-supported-devices: done
+  docs-supported-functions: done
+  docs-troubleshooting: done
+  docs-use-cases: done
+  dynamic-devices:
+    status: exempt
+    comment: Each config entry represents exactly one user-confirmed Smart P1 Connect device.
+  entity-category: done
+  entity-device-class: done
+  entity-disabled-by-default: done
+  entity-translations: done
+  exception-translations: done
+  icon-translations: done
+  reconfiguration-flow: done
+  repair-issues:
+    status: exempt
+    comment: MQTT availability and message publication are monitored by Home Assistant and device entities; no additional actionable repair flow exists.
+  stale-devices: done
+  # Platinum
+  async-dependency: done
+  inject-websession:
+    status: exempt
+    comment: The integration has no HTTP dependency.
+  strict-typing: todo

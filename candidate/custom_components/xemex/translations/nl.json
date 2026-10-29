@@ -1,0 +1,152 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Verbinding",
+        "menu_options": {"manual_mqtt": "MQTT", "modbus": "Modbus TCP"}
+      },
+      "modbus": {
+        "title": "Modbus TCP (alleen lezen)",
+        "description": "Smart Connect ondersteunt één TCP-client. Gebruik dit niet tegelijk met een laadpaal of andere Modbus-client. Neem het serienummer exact over van het etiket. Er worden geen apparaatinstellingen of firmware gewijzigd.",
+        "data": {"host": "IP-adres of hostnaam", "port": "TCP-poort", "serial": "Serienummer Smart Connect", "scan_interval": "Meetinterval (seconden)", "phase_count": "Aantal fasen", "profile": "Registerprofiel", "energy_unit": "Energie-eenheid van firmware"},
+        "data_description": {"serial": "Gebruik het serienummer op het etiket, niet het meternummer. Dit is de vaste apparaatidentiteit en kan niet worden gewijzigd bij herconfiguratie.", "scan_interval": "Standaard 10 seconden; toegestaan 5–3600 seconden. DSMR 4.2 ververst elke 10 seconden.", "phase_count": "Kies zelf 1 of 3. DSMR 4.2 geeft nul volt door; daarmee is het aantal fasen niet te bepalen.", "profile": "Basis: 10 waarden uit V1.6 voor spanning, stroom en vermogen; geen energie. Uitgebreid: 49 waarden uit V1.8, inclusief energie. Niet-ondersteunde optionele adressen worden overgeslagen tot herladen. Geen automatische profiel- of firmwarewijziging.", "energy_unit": "Kies bewust: Wh bij firmware V5.1.x of nieuwer; kWh bij oudere firmware (voetnoot handleiding V1.8). Controleer je firmware; nooit afleiden uit de meetwaarde. Geldt alleen voor energie in het uitgebreide profiel."},
+        "data_options": {"profile": {"basic": "Basis (V1.6, geen energie)", "extended": "Uitgebreid (V1.8)"}, "energy_unit": {"Wh": "Wh — firmware V5.1.x of nieuwer", "kWh": "kWh — oudere firmware"}}
+      },
+      "manual_mqtt": {
+        "data": {
+          "base_topic": "Xemex MQTT-basistopic"
+        },
+        "data_description": {
+          "base_topic": "Vul het topic in tot en met het serienummer van Smart Connect, bijvoorbeeld: devices/mijn-site/smart-connect/ABC123. Voeg /data/power_instant niet toe."
+        }
+      },
+      "reconfigure": {
+        "data": {
+          "base_topic": "Xemex MQTT-basistopic"
+        },
+        "data_description": {
+          "base_topic": "Werk het topic bij tot en met hetzelfde serienummer van Smart Connect, bijvoorbeeld: devices/mijn-site/smart-connect/ABC123. Voeg /data/power_instant niet toe."
+        }
+      },
+      "discovery_confirm": {
+        "description": "Wil je de Xemex Smart Connect met serienummer {serial} toevoegen? Het apparaat is ontdekt via zijn MQTT-metingen."
+      }
+    },
+    "error": {
+      "invalid_value": "Vul een geldig geheel getal in, geen boolean.",
+      "invalid_host": "Vul een IP-adres of hostnaam in, zonder URL, spaties of poort.",
+      "invalid_serial": "Neem het serienummer van het etiket over; alleen letters, cijfers, punt, koppelteken of laag streepje (maximaal 64 tekens).",
+      "cannot_connect": "Smart Connect kon niet worden uitgelezen. Controleer het adres en of er al een andere client verbonden is.",
+      "empty_base_topic": "Vul de MQTT-basistopic van Xemex in.",
+      "invalid_base_topic": "Gebruik precies devices/<site>/smart-connect/<serienummer>. Controleer dat site en serienummer geen extra padonderdelen bevatten.",
+      "measurement_topic_included": "Verwijder /data/power_instant. Vul alleen het topic tot en met het serienummer van Smart Connect in.",
+      "mqtt_not_configured": "De MQTT-integratie van Home Assistant is niet ingesteld of uitgeschakeld. Stel deze eerst in via Instellingen > Apparaten & diensten.",
+      "mqtt_not_connected": "De MQTT-integratie van Home Assistant is ingesteld, maar niet verbonden met de broker. Herstel de brokerverbinding en probeer het opnieuw."
+    },
+    "abort": {
+      "unique_id_mismatch": "Het serienummer moet gelijk blijven. Voeg voor een ander serienummer een apart apparaat toe.",
+      "reconfigure_successful": "Verbindingsinstellingen bijgewerkt.",
+      "already_configured": "Dit Xemex Smart Connect-apparaat is al ingesteld.",
+      "invalid_discovery_payload": "Het ontdekte MQTT-bericht is geen geldige Xemex-meetpayload.",
+      "invalid_discovery_topic": "Het ontdekte MQTT-topic is geen geldig meettopic van een Xemex Smart Connect."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "energy_import": {
+        "name": "Afgenomen energie"
+      },
+      "energy_export": {
+        "name": "Teruggeleverde energie"
+      },
+      "last_measurement": {
+        "name": "Laatste meting"
+      },
+      "net_power": {
+        "name": "Nettovermogen"
+      },
+      "power_import": {
+        "name": "Afnamevermogen"
+      },
+      "power_export": {
+        "name": "Terugleververmogen"
+      },
+      "line_voltage_l1_l2": {
+        "name": "Lijnspanning L1-L2"
+      },
+      "line_voltage_l3_l1": {
+        "name": "Lijnspanning L3-L1"
+      },
+      "line_voltage_l2_l3": {
+        "name": "Lijnspanning L2-L3"
+      },
+      "reactive_power": {
+        "name": "Reactief vermogen"
+      },
+      "reactive_power_positive": {
+        "name": "Positief reactief vermogen"
+      },
+      "reactive_power_negative": {
+        "name": "Negatief reactief vermogen"
+      },
+      "reactive_energy_quadrant_1": {
+        "name": "Reactieve energie kwadrant 1"
+      },
+      "reactive_energy_quadrant_2": {
+        "name": "Reactieve energie kwadrant 2"
+      },
+      "reactive_energy_quadrant_3": {
+        "name": "Reactieve energie kwadrant 3"
+      },
+      "reactive_energy_quadrant_4": {
+        "name": "Reactieve energie kwadrant 4"
+      },
+      "power_failures": {
+        "name": "Stroomstoringen"
+      },
+      "long_power_failures": {
+        "name": "Lange stroomstoringen"
+      },
+      "power_factor": {
+        "name": "Arbeidsfactor"
+      },
+      "apparent_power": {
+        "name": "Schijnbaar vermogen"
+      },
+      "phase_1_voltage": { "name": "Spanning L1" },
+      "phase_2_voltage": { "name": "Spanning L2" },
+      "phase_3_voltage": { "name": "Spanning L3" },
+      "phase_1_current": { "name": "Stroom L1" },
+      "phase_2_current": { "name": "Stroom L2" },
+      "phase_3_current": { "name": "Stroom L3" },
+      "phase_1_net_power": { "name": "Nettovermogen L1" },
+      "phase_2_net_power": { "name": "Nettovermogen L2" },
+      "phase_3_net_power": { "name": "Nettovermogen L3" },
+      "phase_1_power_import": { "name": "Afnamevermogen L1" },
+      "phase_2_power_import": { "name": "Afnamevermogen L2" },
+      "phase_3_power_import": { "name": "Afnamevermogen L3" },
+      "phase_1_power_export": { "name": "Terugleververmogen L1" },
+      "phase_2_power_export": { "name": "Terugleververmogen L2" },
+      "phase_3_power_export": { "name": "Terugleververmogen L3" },
+      "phase_1_reactive_power": { "name": "Reactief vermogen L1" },
+      "phase_2_reactive_power": { "name": "Reactief vermogen L2" },
+      "phase_3_reactive_power": { "name": "Reactief vermogen L3" },
+      "phase_1_reactive_power_positive": { "name": "Positief reactief vermogen L1" },
+      "phase_2_reactive_power_positive": { "name": "Positief reactief vermogen L2" },
+      "phase_3_reactive_power_positive": { "name": "Positief reactief vermogen L3" },
+      "phase_1_reactive_power_negative": { "name": "Negatief reactief vermogen L1" },
+      "phase_2_reactive_power_negative": { "name": "Negatief reactief vermogen L2" },
+      "phase_3_reactive_power_negative": { "name": "Negatief reactief vermogen L3" },
+      "phase_1_voltage_sags": { "name": "Spanningsdips L1" },
+      "phase_2_voltage_sags": { "name": "Spanningsdips L2" },
+      "phase_3_voltage_sags": { "name": "Spanningsdips L3" },
+      "phase_1_voltage_swells": { "name": "Spanningspieken L1" },
+      "phase_2_voltage_swells": { "name": "Spanningspieken L2" },
+      "phase_3_voltage_swells": { "name": "Spanningspieken L3" },
+      "phase_1_apparent_power": { "name": "Schijnbaar vermogen L1" },
+      "phase_2_apparent_power": { "name": "Schijnbaar vermogen L2" },
+      "phase_3_apparent_power": { "name": "Schijnbaar vermogen L3" }
+    }
+  }
+}
