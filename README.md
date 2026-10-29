@@ -1,4 +1,6 @@
-# Xemex for Home Assistant
+# Xemex Home Assistant Integration
+
+Repository: https://github.com/hidder11/xemex-home-assistant
 
 Read your Xemex Smart Connect in Home Assistant using MQTT or Modbus TCP. Choose the connection when adding the integration. Version: 0.2.0.
 
