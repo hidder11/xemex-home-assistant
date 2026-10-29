@@ -16,7 +16,9 @@ Read your Xemex Smart Connect in Home Assistant using MQTT or Modbus TCP. Choose
 
 ### Via HACS (preferred)
 
-The integration now uses the standard `custom_components/xemex` directory structure. Installation through HACS has not yet been verified; use manual installation if HACS does not accept the repository.
+Add this repository as a **custom repository** with type **Integration**. It is not included in the default HACS catalogue. The repository uses `custom_components/xemex` and installs from the default branch; no separate release is required.
+
+If HACS cached an older commit and reports that its version cannot be used, use **Update information** in the repository menu and retry the download from the default branch.
 
 1. Open HACS in Home Assistant and select **Custom repositories** from the top-right menu.
 2. Add the GitHub repository URL with the type **Integration**.
