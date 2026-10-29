@@ -1,59 +1,59 @@
-# Xemex voor Home Assistant
+# Xemex for Home Assistant
 
-Lees je Xemex Smart Connect uit in Home Assistant via MQTT of Modbus TCP. Je kiest de verbinding bij het toevoegen van de integratie. Versie: 0.2.0.
+Read your Xemex Smart Connect in Home Assistant using MQTT or Modbus TCP. Choose the connection when adding the integration. Version: 0.2.0.
 
-## Functies
+## Features
 
-- Sensoren voor vermogen, spanning, stroom en, afhankelijk van het profiel, energie.
-- Ondersteuning voor één- en driefasige aansluitingen.
-- MQTT met automatische ontdekking of handmatig ingestelde basistopic. Bestaande MQTT-configuraties blijven behouden.
-- Modbus TCP met instelbaar meetinterval van 1–3600 seconden (standaard 10 seconden). Alleen uitlezen: geen wijzigingen aan apparaatinstellingen of firmware.
-- Modbus-profielen Basis (spanning, stroom en vermogen) en Uitgebreid (ook energie en aanvullende metingen).
+- Sensors for power, voltage, current and, depending on the profile, energy.
+- Support for single-phase and three-phase connections.
+- MQTT with automatic discovery or a manually configured base topic. Existing MQTT configurations are preserved.
+- Modbus TCP with a polling interval of 1–3600 seconds (default: 10 seconds). Read-only: no changes to device settings or firmware.
+- Basic Modbus profile (voltage, current and power) and Extended profile (also includes energy and additional measurements).
 
-## Installeren
+## Installation
 
-### Via HACS (voorkeur)
+### Via HACS (preferred)
 
-Let op: deze repository staat nu alleen lokaal en is nog niet geschikt voor installatie via HACS. Daarvoor moet de integratie eerst in de juiste HACS-mapstructuur op GitHub worden gepubliceerd. Er is nog geen repository-URL om toe te voegen.
+Note: this repository is not yet ready for HACS installation. The integration must first be moved into the required HACS directory structure. Publishing the repository on GitHub alone does not make it installable through HACS; use manual installation for now.
 
-Zodra die beschikbaar is:
+Once available:
 
-1. Open HACS in Home Assistant en kies via het menu rechtsboven **Aangepaste repositories**.
-2. Voeg de GitHub-repository-URL toe met type **Integratie**.
-3. Zoek **Xemex** in HACS en download de integratie.
-4. Herstart Home Assistant.
-5. Ga naar **Instellingen → Apparaten & diensten → Integratie toevoegen → Xemex**.
-6. Kies **MQTT** of **Modbus TCP** en vul de verbindingsgegevens in.
+1. Open HACS in Home Assistant and select **Custom repositories** from the top-right menu.
+2. Add the GitHub repository URL with the type **Integration**.
+3. Find **Xemex** in HACS and download the integration.
+4. Restart Home Assistant.
+5. Go to **Settings → Devices & services → Add integration → Xemex**.
+6. Choose **MQTT** or **Modbus TCP** and enter the connection details.
 
-### Handmatig kopiëren (alternatief)
+### Manual installation (alternative)
 
-1. Kopieer de map `candidate/custom_components/xemex` uit deze repository naar `custom_components/xemex` in de configuratiemap van Home Assistant. Het bestand staat daarna op `/config/custom_components/xemex/manifest.json` bij een standaardinstallatie. Vervang bij een update de bestaande integratiemap; maak vooraf een back-up.
-2. Herstart Home Assistant.
-3. Ga naar **Instellingen → Apparaten & diensten → Integratie toevoegen → Xemex**.
-4. Kies **MQTT** of **Modbus TCP** en vul de verbindingsgegevens in.
+1. Copy `candidate/custom_components/xemex` from this repository to `custom_components/xemex` in your Home Assistant configuration directory. On a standard installation, the manifest will then be at `/config/custom_components/xemex/manifest.json`. When updating, replace the existing integration directory; make a backup first.
+2. Restart Home Assistant.
+3. Go to **Settings → Devices & services → Add integration → Xemex**.
+4. Choose **MQTT** or **Modbus TCP** and enter the connection details.
 
-### MQTT instellen
+### MQTT setup
 
-Configureer eerst de MQTT-integratie van Home Assistant en laat de Smart Connect naar dezelfde broker publiceren. Vul als basistopic `devices/<site>/smart-connect/<serienummer>` in, zonder `/data/power_instant`.
+First configure the Home Assistant MQTT integration and have the Smart Connect publish to the same broker. Enter `devices/<site>/smart-connect/<serial_number>` as the base topic, without `/data/power_instant`.
 
-De Xemex Smart Connect ondersteunt alleen MQTTS (MQTT via TLS) met een geldig certificaat op de broker. Zelf een eigen certificaat aanleveren bij Xemex en MQTT zonder encryptie worden niet ondersteund. Volgens de terugkoppeling van Xemex aan de gebruiker komt deze ondersteuning om veiligheidsredenen niet op korte termijn beschikbaar. Zorg dus dat de broker een certificaat gebruikt dat de Smart Connect accepteert.
+The Xemex Smart Connect only supports MQTTS (MQTT over TLS) with a valid broker certificate. Supplying your own certificate to Xemex and using unencrypted MQTT are not supported. In response to the user's request, Xemex stated that neither option is planned in the short term for security reasons. Make sure the broker uses a certificate that the Smart Connect accepts.
 
-### Modbus TCP instellen
+### Modbus TCP setup
 
-Vul het IP-adres of de hostnaam, de TCP-poort (standaard 502) en het Smart Connect-serienummer van het etiket in. Kies het meetinterval, het aantal fasen en het registerprofiel.
+Enter the IP address or hostname, TCP port (default: 502) and Smart Connect serial number printed on the label. Choose the polling interval, number of phases and register profile.
 
-Kies bij energie-eenheid **Wh** voor firmware V5.1.x of nieuwer en **kWh** voor oudere firmware. Controleer hiervoor de firmwareversie van je apparaat.
+For the energy unit, choose **Wh** for firmware V5.1.x or newer and **kWh** for older firmware. Check your device's firmware version before choosing.
 
-De Smart Connect ondersteunt maar één Modbus TCP-client tegelijk. Gebruik deze verbinding niet tegelijk met een laadpaal, EMS of andere Modbus-client. Een interval van 1 seconde betekent niet dat de meter elke seconde nieuwe gegevens levert.
+The Smart Connect supports only one Modbus TCP client at a time. Do not use this connection alongside a charging station, EMS or another Modbus client. A polling interval of 1 second does not mean the meter provides new data every second.
 
-## Goed om te weten
+## Notes
 
-Voeg hetzelfde serienummer niet tweemaal toe, ook niet via verschillende verbindingen. Modbus-instellingen kun je later via **Herconfigureren** aanpassen; het serienummer blijft vast.
+Do not add the same serial number twice, even with different connection types. Modbus settings can be changed later using **Reconfigure**; the serial number remains fixed.
 
-Bij oudere firmware die MQTT-energie in kWh publiceert kan de bestaande MQTT-omrekening een te lage energiewaarde geven. De firmwarekeuze hierboven geldt alleen voor Modbus.
+For older firmware that publishes MQTT energy in kWh, the existing MQTT conversion may produce an energy value that is too low. The firmware-dependent unit selection above applies only to Modbus.
 
-## Ontwikkeling
+## Development
 
-De integratie staat in `candidate/custom_components/xemex/` en de tests in `tests/`. `baseline/` bevat de oorspronkelijke MQTT-broncode voor regressietests; installeer die map niet. Testafhankelijkheden staan in `requirements-test.txt`. De lokale tests zijn opgezet voor Home Assistant 2026.10.4 en Python 3.14; andere versies zijn niet gevalideerd.
+The integration is in `candidate/custom_components/xemex/` and tests are in `tests/`. `baseline/` contains the original MQTT source code for regression tests; do not install that directory. Test dependencies are listed in `requirements-test.txt`. Local tests target Home Assistant 2026.10.4 and Python 3.14; other versions have not been validated.
 
-Voer vanuit de repository `python -m pytest tests -v` uit in een omgeving met deze afhankelijkheden. De tests gebruiken lokale simulators; ze vervangen geen controle met de fysieke Smart Connect.
+Run `python -m pytest tests -v` from the repository in an environment with these dependencies installed. The tests use local simulators and do not replace testing with a physical Smart Connect.
