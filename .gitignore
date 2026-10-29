@@ -16,3 +16,6 @@ venv/
 .env
 .env.*
 *.log
+
+# PDF-documenten blijven lokaal, ook in bron- en testmappen.
+*.[pP][dD][fF]
