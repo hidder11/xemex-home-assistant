@@ -4,14 +4,14 @@ import sys
 import pytest_asyncio
 
 ROOT = Path(__file__).parents[1]
-sys.path.insert(0, str(ROOT / 'candidate'))
+sys.path.insert(0, str(ROOT))
 
 @pytest_asyncio.fixture
 async def hass(tmp_path, monkeypatch):
     from homeassistant import loader
     from homeassistant.bootstrap import async_from_config_dict
     from homeassistant.core import HomeAssistant
-    shutil.copytree(ROOT / 'candidate/custom_components', tmp_path / 'custom_components')
+    shutil.copytree(ROOT / 'custom_components', tmp_path / 'custom_components')
     (tmp_path / 'custom_components/__init__.py').touch()
     (tmp_path / 'configuration.yaml').write_text('{}\n')
     instance = HomeAssistant(str(tmp_path))

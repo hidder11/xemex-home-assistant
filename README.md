@@ -16,9 +16,7 @@ Read your Xemex Smart Connect in Home Assistant using MQTT or Modbus TCP. Choose
 
 ### Via HACS (preferred)
 
-Note: this repository is not yet ready for HACS installation. The integration must first be moved into the required HACS directory structure. Publishing the repository on GitHub alone does not make it installable through HACS; use manual installation for now.
-
-Once available:
+The integration now uses the standard `custom_components/xemex` directory structure. Installation through HACS has not yet been verified; use manual installation if HACS does not accept the repository.
 
 1. Open HACS in Home Assistant and select **Custom repositories** from the top-right menu.
 2. Add the GitHub repository URL with the type **Integration**.
@@ -29,7 +27,7 @@ Once available:
 
 ### Manual installation (alternative)
 
-1. Copy `candidate/custom_components/xemex` from this repository to `custom_components/xemex` in your Home Assistant configuration directory. On a standard installation, the manifest will then be at `/config/custom_components/xemex/manifest.json`. When updating, replace the existing integration directory; make a backup first.
+1. Copy `custom_components/xemex` from this repository to `custom_components/xemex` in your Home Assistant configuration directory. On a standard installation, the manifest will then be at `/config/custom_components/xemex/manifest.json`. When updating, replace the existing integration directory; make a backup first.
 2. Restart Home Assistant.
 3. Go to **Settings → Devices & services → Add integration → Xemex**.
 4. Choose **MQTT** or **Modbus TCP** and enter the connection details.
@@ -56,6 +54,6 @@ For older firmware that publishes MQTT energy in kWh, the existing MQTT conversi
 
 ## Development
 
-The integration is in `candidate/custom_components/xemex/` and tests are in `tests/`. `baseline/` contains the original MQTT source code for regression tests; do not install that directory. Test dependencies are listed in `requirements-test.txt`. Local tests target Home Assistant 2026.10.4 and Python 3.14; other versions have not been validated.
+The integration is in `custom_components/xemex/` and tests are in `tests/`. `tests/fixtures/original_mqtt/` contains the original MQTT source code used only for regression tests; do not install it. Test dependencies are listed in `requirements-test.txt`. Local tests target Home Assistant 2026.10.4 and Python 3.14; other versions have not been validated.
 
 Run `python -m pytest tests -v` from the repository in an environment with these dependencies installed. The tests use local simulators and do not replace testing with a physical Smart Connect.

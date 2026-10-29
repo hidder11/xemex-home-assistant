@@ -8,7 +8,7 @@ from helpers import discovery
 
 def test_all_mqtt_descriptions_and_units_identical_to_immutable_baseline():
     from custom_components.xemex.sensor import SENSORS
-    path=Path(__file__).parents[1]/'baseline/custom_components/xemex/sensor.py'
+    path=Path(__file__).parent/'fixtures/original_mqtt/custom_components/xemex/sensor.py'
     name='custom_components.xemex._baseline_sensor'
     spec=importlib.util.spec_from_file_location(name,path)
     module=importlib.util.module_from_spec(spec)

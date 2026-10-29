@@ -8,7 +8,7 @@ from simulator import meter
 async def test_modbus_fresh_process_with_mqtt_imports_forbidden(meter, tmp_path):
     root=Path(__file__).parents[1]
     process=await asyncio.create_subprocess_exec(sys.executable,
-        str(root/'tests/no_mqtt_probe.py'),str(root/'candidate'),str(meter.port),
+        str(root/'tests/no_mqtt_probe.py'),str(root),str(meter.port),
         stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
     async with asyncio.timeout(45):
         output,_=await process.communicate()

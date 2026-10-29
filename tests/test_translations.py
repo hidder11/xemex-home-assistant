@@ -4,7 +4,7 @@ import pytest
 
 @pytest.mark.parametrize('language', ['en','nl'])
 def test_transport_translations_and_explicit_firmware_units(language):
-    root=Path(__file__).parents[1]/'candidate/custom_components/xemex'
+    root=Path(__file__).parents[1]/'custom_components/xemex'
     text=json.loads((root/'translations'/f'{language}.json').read_text())
     steps=text['config']['step']
     assert set(steps['user']['menu_options'])=={'manual_mqtt','modbus'}
