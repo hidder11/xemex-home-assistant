@@ -36,6 +36,8 @@ Zodra die beschikbaar is:
 
 Configureer eerst de MQTT-integratie van Home Assistant en laat de Smart Connect naar dezelfde broker publiceren. Vul als basistopic `devices/<site>/smart-connect/<serienummer>` in, zonder `/data/power_instant`.
 
+De Xemex Smart Connect ondersteunt alleen MQTTS (MQTT via TLS) met een geldig certificaat op de broker. Zelf een eigen certificaat aanleveren bij Xemex en MQTT zonder encryptie worden niet ondersteund. Volgens de terugkoppeling van Xemex aan de gebruiker komt deze ondersteuning om veiligheidsredenen niet op korte termijn beschikbaar. Zorg dus dat de broker een certificaat gebruikt dat de Smart Connect accepteert.
+
 ### Modbus TCP instellen
 
 Vul het IP-adres of de hostnaam, de TCP-poort (standaard 502) en het Smart Connect-serienummer van het etiket in. Kies het meetinterval, het aantal fasen en het registerprofiel.
