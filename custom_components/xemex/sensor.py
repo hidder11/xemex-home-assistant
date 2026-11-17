@@ -30,7 +30,10 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import (
     CONF_BASE_TOPIC,
+    CONF_CURRENT_SOURCE,
     CONF_PHASE_DEFAULTS_PENDING,
+    CURRENT_SOURCE_CALCULATED,
+    CURRENT_SOURCE_MEASURED,
     DOMAIN,
     PHASE_COUNT_SINGLE,
     serial_from_base_topic,
@@ -376,6 +379,15 @@ class XemexSensor(SensorEntity):
         """Initialize the sensor."""
         self.entity_description = description
         self._data = data
+        self._calculated_current = (
+            entry.options.get(CONF_CURRENT_SOURCE, CURRENT_SOURCE_MEASURED)
+            == CURRENT_SOURCE_CALCULATED
+            and description.key in (
+                "phase_1_current", "phase_2_current", "phase_3_current"
+            )
+        )
+        if self._calculated_current:
+            self._attr_suggested_display_precision = 2
         self._attr_entity_registry_enabled_default = _phase_enabled_default(
             description, data.phase_count
         )
@@ -403,6 +415,26 @@ class XemexSensor(SensorEntity):
     def _native_value(self) -> datetime | float | None:
         """Return a validated payload value."""
         raw_value: Any = self._data.payload
+        if self._calculated_current:
+            if not isinstance(raw_value, dict):
+                return None
+            phase = raw_value.get(self.entity_description.payload_path[0])
+            if not isinstance(phase, dict):
+                return None
+            power, voltage = phase.get("P"), phase.get("U")
+            if (
+                power is None or voltage is None
+                or isinstance(power, bool) or isinstance(voltage, bool)
+            ):
+                return None
+            try:
+                power, voltage = float(power), float(voltage)
+            except (TypeError, ValueError, OverflowError):
+                return None
+            if not math.isfinite(power) or not math.isfinite(voltage) or voltage <= 0:
+                return None
+            current = abs(power) / voltage
+            return current if math.isfinite(current) else None
         for key in self.entity_description.payload_path:
             if not isinstance(raw_value, dict):
                 return None

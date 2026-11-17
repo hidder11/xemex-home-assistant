@@ -10,13 +10,17 @@ from typing import Any
 import voluptuous as vol
 
 from homeassistant import config_entries
+from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers.service_info.mqtt import MqttServiceInfo
 
 from .const import (
     CONF_BASE_TOPIC,
+    CONF_CURRENT_SOURCE,
     CONF_PHASE_COUNT,
     CONF_PHASE_DEFAULTS_PENDING,
+    CURRENT_SOURCE_CALCULATED,
+    CURRENT_SOURCE_MEASURED,
     DOMAIN,
     base_topic_from_measurement_topic,
     base_topic_validation_error,
@@ -30,6 +34,14 @@ class XemexConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Xemex Smart P1 Connect."""
 
     VERSION = 1
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(
+        config_entry: config_entries.ConfigEntry,
+    ) -> XemexOptionsFlow:
+        """Expose optional measurement settings for either transport."""
+        return XemexOptionsFlow()
 
     def __init__(self) -> None:
         """Initialize the config flow."""
@@ -249,4 +261,29 @@ class XemexConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=errors,
+        )
+
+
+class XemexOptionsFlow(config_entries.OptionsFlowWithReload):
+    """Select a current source without changing the device connection."""
+
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> FlowResult:
+        """Show the current source and reload when the choice changes."""
+        if user_input is not None:
+            return self.async_create_entry(
+                data={**self.config_entry.options, **user_input},
+            )
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema({
+                vol.Required(
+                    CONF_CURRENT_SOURCE,
+                    default=self.config_entry.options.get(
+                        CONF_CURRENT_SOURCE, CURRENT_SOURCE_MEASURED
+                    ),
+                ): vol.In([CURRENT_SOURCE_MEASURED, CURRENT_SOURCE_CALCULATED]),
+            }),
         )

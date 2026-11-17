@@ -2,7 +2,7 @@
 
 Repository: https://github.com/hidder11/xemex-home-assistant
 
-Read your Xemex Smart Connect in Home Assistant using MQTT or Modbus TCP. Choose the connection when adding the integration. Version: 0.2.0.
+Read your Xemex Smart Connect in Home Assistant using MQTT or Modbus TCP. Choose the connection when adding the integration. Version: 0.3.0.
 
 ## Features
 
@@ -48,6 +48,17 @@ For the energy unit, choose **Wh** for firmware V5.1.x or newer and **kWh** for 
 
 The Smart Connect supports only one Modbus TCP client at a time. Do not use this connection alongside a charging station, EMS or another Modbus client. A polling interval of 1 second does not mean the meter provides new data every second.
 
+## Current source (optional)
+
+Open **Settings → Devices & services → Xemex → Configure** and select the current source:
+
+- **Measured — P1 current** (default): keeps the current reported by the meter. Existing installations remain unchanged.
+- **Calculated — |P| / U (estimate)**: calculates each phase's current magnitude from that phase's active power in watts and phase-to-neutral voltage in volts. Export also produces a positive current magnitude. The display defaults to two decimal places; the underlying value is not rounded.
+
+This option works with MQTT and both Modbus profiles, for one- and three-phase meters. It changes the existing L1–L3 current sensors without changing their entity IDs. Saving a different choice automatically reloads the integration. Missing or invalid inputs, zero/negative voltage, and stale or failed measurements make the affected sensor unavailable; there is no silent fallback to the rounded P1 current.
+
+**Accuracy limitation:** active power divided by voltage assumes a power factor of 1. It gives finer resolution than whole-ampere P1 readings but is not a measurement of true RMS current. At lower power factors it can underestimate the actual current. Do not use it as the sole protection for fuses or load balancing. Existing historical current statistics remain attached to the same entities, so their interpretation changes when switching sources.
+
 ## Notes
 
 Do not add the same serial number twice, even with different connection types. Modbus settings can be changed later using **Reconfigure**; the serial number remains fixed.
@@ -56,6 +67,6 @@ For older firmware that publishes MQTT energy in kWh, the existing MQTT conversi
 
 ## Development
 
-The integration is in `custom_components/xemex/` and tests are in `tests/`. `tests/fixtures/original_mqtt/` contains the original MQTT source code used only for regression tests; do not install it. Test dependencies are listed in `requirements-test.txt`. Local tests target Home Assistant 2026.10.4 and Python 3.14; other versions have not been validated.
+The integration is in `custom_components/xemex/` and tests are in `tests/`. `tests/fixtures/original_mqtt/` contains the original MQTT source code used only for regression tests; do not install it. Test dependencies are listed in `requirements-test.txt` and target Home Assistant 2026.10.4 with Python 3.14. The full suite has also passed on Home Assistant 2026.11.1; for that test environment, use `homeassistant==2026.11.1` and the matching `aiohasupervisor==0.8.1` in place of the older pins. Other Home Assistant versions have not been validated.
 
 Run `python -m pytest tests -v` from the repository in an environment with these dependencies installed. The tests use local simulators and do not replace testing with a physical Smart Connect.

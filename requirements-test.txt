@@ -3,3 +3,5 @@ pytest==8.4.2
 pytest-asyncio==1.2.0
 pymodbus==3.13.1
 paho-mqtt==2.1.0
+# MQTT config flow imports hassio; needed by native MQTT tests in a fresh venv.
+aiohasupervisor==0.6.0

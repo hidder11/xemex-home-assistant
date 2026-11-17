@@ -52,6 +52,17 @@
       "invalid_discovery_topic": "Het ontdekte MQTT-topic is geen geldig meettopic van een Xemex Smart Connect."
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Stroombron",
+        "description": "Kies de bron voor de bestaande stroomsensoren L1–L3. Berekend gebruikt per fase |P| / U (watt / volt), ook bij teruglevering. Dit is een schatting op basis van actief vermogen, met arbeidsfactor 1; bij een lagere arbeidsfactor kan de werkelijke stroom hoger zijn. Gebruik dit niet als enige beveiliging voor zekeringen of load balancing. Ontbrekende waarden of een spanning van nul leveren geen berekende stroom op.",
+        "data": {"current_source": "Bron voor stroomsterkte"},
+        "data_description": {"current_source": "Gemeten behoudt de P1-waarde (standaard). Berekend toont twee decimalen zonder de onderliggende waarde af te ronden. Entiteits-ID's blijven gelijk; de integratie wordt na een wijziging automatisch herladen."},
+        "data_options": {"current_source": {"measured": "Gemeten — P1-stroom", "calculated": "Berekend — |P| / U (schatting)"}}
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "energy_import": {

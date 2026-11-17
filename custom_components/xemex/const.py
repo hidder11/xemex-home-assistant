@@ -11,6 +11,9 @@ DOMAIN = "xemex"
 CONF_BASE_TOPIC = "base_topic"
 CONF_PHASE_COUNT = "phase_count"
 CONF_PHASE_DEFAULTS_PENDING = "phase_defaults_pending"
+CONF_CURRENT_SOURCE = "current_source"
+CURRENT_SOURCE_MEASURED = "measured"
+CURRENT_SOURCE_CALCULATED = "calculated"
 POWER_INSTANT_SUFFIX = "data/power_instant"
 
 PHASE_COUNT_SINGLE = 1

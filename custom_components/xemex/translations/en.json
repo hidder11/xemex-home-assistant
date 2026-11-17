@@ -52,6 +52,17 @@
       "invalid_discovery_topic": "The discovered MQTT topic is not a valid Xemex Smart Connect measurement topic."
     }
   },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Current source",
+        "description": "Choose the source for the existing L1–L3 current sensors. Calculated uses |P| / U per phase (watts / volts), including during export. This is an estimate based on active power, assuming a power factor of 1; at a lower power factor, actual current can be higher. Do not use this as the sole protection for fuses or load balancing. Missing readings or zero voltage do not produce a calculated current.",
+        "data": {"current_source": "Current source"},
+        "data_description": {"current_source": "Measured keeps the P1 reading (default). Calculated suggests two display decimals without rounding the underlying value. Entity IDs stay the same; changing this option automatically reloads the integration."},
+        "data_options": {"current_source": {"measured": "Measured — P1 current", "calculated": "Calculated — |P| / U (estimate)"}}
+      }
+    }
+  },
   "entity": {
     "sensor": {
       "energy_import": {
